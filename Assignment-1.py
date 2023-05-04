@@ -55,5 +55,6 @@ def dfs(graph, start, goal):
             if n not in visited:
                 visited.append(n)
                 stack.append(n)
-
+                  
+print("The BFS Traversal is : ")
 dfs(graph, 'A', "D")
