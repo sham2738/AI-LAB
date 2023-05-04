@@ -1,57 +1,32 @@
-# Number of queens
-n=4
-# Matrix
-a=[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
-# Dictionary for backtrack
-b={}
-
-# Checking if column is safe
-def isColumnSafe(r,c):
-    while(r>=0):
-        if(a[r][c] == 1):
-            return 0
-        r = r-1
-    return 1
-
-# Checking if left diagonal is safe
-def isLeftDiagonalSafe(r,c):
-    while(r>=0 and c>=0):
-        if(a[r][c] == 1):
-            return 0
-        r = r-1
-        c = c-1
-    return 1
-
-# Checking if right diagonal is safe
-def isRightDiagonalSafe(r,c):
-    while(r>=0 and c<n):
-        if(a[r][c]==1):
-            return 0
-        r = r-1
-        c = c+1
-    return 1
-
-def isSafe(r,c):
-    if(isColumnSafe(r,c) and isLeftDiagonalSafe(r,c) and isRightDiagonalSafe(r,c)):
-        return True
+# Taking number of queens as input from user
+print ("Enter the number of queens")
+N = int(input())
+# here we create a chessboard
+# NxN matrix with all elements set to 0
+board = [[0]*N for _ in range(N)]
+def attack(i, j):
+    #checking vertically and horizontally
+    for k in range(0,N):
+        if board[i][k]==1 or board[k][j]==1:
+            return True
+    #checking diagonally
+    for k in range(0,N):
+        for l in range(0,N):
+            if (k+l==i+j) or (k-l==i-j):
+                if board[k][l]==1:
+                    return True
     return False
-def chessboard(r,c):
-    if(r>=n):
-        return 
-    p = 0
-    while c<n:
-        p = isSafe(r,c)
-        if p == 1:
-            a[r][c] = 1
-            b.update({r:c})
-            break
-        c=c+1
-    
-    if p==1:
-        chessboard(r+1,0)
-    else:
-        a[r-1][b.get(r-1)]=0
-        chessboard(r-1,int(b.get(r-1))+1)
-chessboard(0,0)
-print("Matrix is:- ",a)
-print("Dictionary is:- ",b)
+def N_queens(n):
+    if n==0:
+        return True
+    for i in range(0,N):
+        for j in range(0,N):
+            if (not(attack(i,j))) and (board[i][j]!=1):
+                board[i][j] = 1
+                if N_queens(n-1)==True:
+                    return True
+                board[i][j] = 0
+    return False
+N_queens(N)
+for i in board:
+    print (i)
