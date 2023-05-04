@@ -56,5 +56,5 @@ def dfs(graph, start, goal):
                 visited.append(n)
                 stack.append(n)
                   
-print("The BFS Traversal is : ")
+print("The DFS Traversal is : ")
 dfs(graph, 'A', "D")
